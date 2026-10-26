@@ -1,6 +1,9 @@
+Auteur : wiam1237
+Email : wiamraoub@gmail.com
+
 # Étude de conception — Maintenance prédictive des équipements
 
-Groupe : Projet maintenance prédictive · Version : finale · Date : 26/10/2026 nom:
+Groupe : Projet maintenance prédictive · Version : finale · Date : 26/10/2026
 
 ## 1. Contexte et utilisateurs
 - Utilisateur principal (un rôle précis) : responsable de maintenance industrielle / chef de maintenance d’un site de production.
