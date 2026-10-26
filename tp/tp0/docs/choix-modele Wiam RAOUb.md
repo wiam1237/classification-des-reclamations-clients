@@ -5,8 +5,7 @@ Auteur : wiam1237
 Date : 26/10/2026 · Groupe : Projet maintenance prédictive
 
 ## Contexte
-Le projet vise à prédire si une panne de machine va survenir à partir de capteurs de fonctionnement. La métrique principale est le recall, car il est plus coûteux de manquer une panne réelle que d’alerter à tort : en maintenance prédictive, un faux négatif peut entraîner une interruption non planifiée et des pertes opérationnelles.
-
+Le projet a pour objectif de prédire les pannes des machines à partir des données collectées par les capteurs de fonctionnement. La métrique principale utilisée est le recall, car il est essentiel de détecter le maximum de pannes réelles. En effet, en maintenance prédictive, ne pas détecter une panne peut entraîner un arrêt imprévu de la machine et provoquer des pertes opérationnelles importantes.
 ## Données et découpage
 Le jeu de données utilisé est `data/exemple_pannes.csv`, composé de 5 000 lignes et 5 colonnes : `temperature_c`, `vibration_mm_s`, `load_pct`, `runtime_hours` et la cible `failure`. Les quatre variables de capteurs sont utilisées comme variables explicatives ; la cible est binaire (`0` = pas de panne, `1` = panne).
 
@@ -61,4 +60,4 @@ Le modèle retenu est la régression linéaire, car il obtient le meilleur MAE s
 Le critère d’acceptation est atteint : le modèle retenu améliore clairement la baseline sur la métrique principale et atteint un R² de 0,883, ce qui confirme une bonne capacité prédictive sur les données de test.
 
 ## Limites
-Ces résultats sont construits sur un échantillon de 340 jours seulement, ce qui limite la robustesse du modèle sur des périodes plus atypiques comme les vacances ou les événements exceptionnels. Le découpage chronologique est pertinent pour simuler un vrai usage en production, mais il reste dépendant de la stabilité des tendances de consommation. De plus, le modèle ne prend pas directement en compte des facteurs non numériques ou des changements externes non observés dans le jeu de données, comme des modifications de politique de restauration ou des variations soudaines de fréquentation.
+Les résultats obtenus reposent sur un échantillon de seulement 340 jours, ce qui peut limiter la capacité du modèle à gérer des situations inhabituelles, comme les vacances ou les événements exceptionnels. Le découpage chronologique est adapté, car il permet de simuler les conditions réelles d’utilisation du modèle. Cependant, sa fiabilité dépend de la stabilité des tendances de consommation au fil du temps. Enfin, le modèle ne prend pas directement en compte certains facteurs externes, comme les changements de politique de restauration ou les variations soudaines du nombre de clients, qui peuvent influencer les prévisions.
