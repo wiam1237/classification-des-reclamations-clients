@@ -134,4 +134,5 @@ Dans `/docs`, ouvrir `POST /v1/predict` puis consulter le schéma du corps de re
 
 ## 8. Ce qui reste flou
 
-Rien
+
+Aucune question pour le moment. Le TP m’a permis de comprendre la validation des données avec Pydantic, le fonctionnement d’une API FastAPI et les tests automatisés avec pytest.
