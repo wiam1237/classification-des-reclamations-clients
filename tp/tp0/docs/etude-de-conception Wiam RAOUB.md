@@ -1,13 +1,14 @@
 Auteur : wiam1237
 # Étude de conception — Maintenance prédictive des équipements
 
-Groupe : Projet maintenance prédictive · Version : finale · Date : 26/10/2026 nom:
+Groupe : Projet maintenance prédictive       Date : 26/10/2026 
 
 ## 1. Contexte et utilisateurs
-- Utilisateur principal (un rôle précis) : responsable de maintenance industrielle / chef de maintenance d’un site de production.
-- Le système aide à anticiper les pannes de machines à partir de mesures de fonctionnement, afin de planifier une intervention avant une défaillance coûteuse.
-- Les utilisateurs bénéficient d’une alerte ciblée sur les équipements à risque, plutôt que d’une inspection systématique ou d’une réaction après la panne.
+- Utilisateur principal : le responsable de maintenance industrielle d’un site de production.
 
+- Le système permet d’anticiper les pannes des machines à partir des données collectées par les capteurs, afin de planifier les interventions avant qu’une défaillance ne survienne.
+
+- Les utilisateurs peuvent identifier les équipements à risque grâce à des alertes ciblées, plutôt que d’effectuer des inspections systématiques ou d’intervenir uniquement après une panne.
 ## 2. Problème et décision
 - Décision que l'utilisateur prend avec le système : décider s’il faut programmer une intervention de maintenance ou continuer le fonctionnement normal de la machine.
 - Fréquence : plusieurs fois par jour, selon la fréquence de collecte des capteurs sur les machines.
