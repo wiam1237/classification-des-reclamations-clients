@@ -7,9 +7,9 @@ Date : 26/10/2026 ·  Projet: maintenance prédictive
 ## Contexte
 Le projet a pour objectif de prédire les pannes des machines à partir des données collectées par les capteurs de fonctionnement. La métrique principale utilisée est le recall, car il est essentiel de détecter le maximum de pannes réelles. En effet, en maintenance prédictive, ne pas détecter une panne peut entraîner un arrêt imprévu de la machine et provoquer des pertes opérationnelles importantes.
 ## Données et découpage
-Le jeu de données utilisé est `data/exemple_pannes.csv`, composé de 5 000 lignes et 5 colonnes : `temperature_c`, `vibration_mm_s`, `load_pct`, `runtime_hours` et la cible `failure`. Les quatre variables de capteurs sont utilisées comme variables explicatives ; la cible est binaire (`0` = pas de panne, `1` = panne).
+Le jeu de données utilisé est data/exemple_pannes.csv. Il contient 5 000 lignes et 5 colonnes, dont quatre variables issues des capteurs : temperature_c, vibration_mm_s, load_pct et runtime_hours. La cinquième colonne, failure, indique si une panne s’est produite (1) ou non (0).
 
-Le découpage est aléatoire stratifié avec un ratio 80/20, avec `random_state=42`, ce qui donne environ 4 000 observations pour l’entraînement et 1 000 pour le test. La cible est déséquilibrée (4 122 lignes sans panne contre 878 pannes), ce qui justifie le choix d’une métrique orientée détection des cas positifs.
+Les données sont divisées aléatoirement en 80 % pour l’entraînement et 20 % pour le test, avec random_state=42 et une stratification pour conserver la proportion des classes. On obtient ainsi environ 4 000 observations pour l’entraînement et 1 000 pour le test. Enfin, le jeu de données contient 4 122 observations sans panne contre 878 avec panne. Ce déséquilibre justifie l’utilisation du recall pour évaluer la capacité du modèle à détecter les pannes réelles.
 
 ## Résultats sur le jeu de test
 
