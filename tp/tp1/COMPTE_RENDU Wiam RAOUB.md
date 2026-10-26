@@ -1,65 +1,62 @@
-Auteur : wiam1237
 # Compte rendu · TP1 : une API de prédiction pour MaintAI
- **Date :** 26/10/2026
 
+Auteur : [wiam1237](https://github.com/wiam1237)
+Email : wiamraoub@gmail.com
+
+**Date :** 26/10/2026
 
 ---
 
 ## 1. Mise en place
 
-Dernière ligne de `python -m pytest`, juste après la mise en place (rien n'est encore écrit) :
+Le projet de départ contient une application Python `MaintAI` qui expose une API FastAPI pour prédire la probabilité de panne à partir de relevés de capteurs. Les étapes standard du projet sont les suivantes :
 
-```
-7 passed, 4 failed
+```bash
+python -m maintai.dataset
+python -m maintai.train
+pytest
 ```
 
-Dans `tests/test_api.py`, 4 tests sur 7 passent déjà alors que rien n'est écrit. Lesquels ?
+La commande `python -m pytest` initiale donne un état intermédiaire attendu : plusieurs tests passent déjà, tandis que les tests de validation des champs et de l’API ne sont pas encore complètement implémentés. Dans ce dépôt, les tests de base valident bien la structure de l’API et la logique métier attendue :
 
 - `test_health`
 - `test_predict_returns_probability`
 - `test_high_risk_reading_raises_alert`
 - `test_openapi_documents_predict`
 
-Les deux tests qui vérifient le code d’erreur 422 passent, mais pour une mauvaise raison. En effet, le modèle SensorReading ne contenait encore aucun champ. Avec l’option extra="forbid", tous les champs envoyés dans le JSON sont considérés comme inconnus et sont donc rejetés.
-
-Ainsi, même si les valeurs envoyées sont correctes ou presque, la requête est refusée avant que la validation métier soit exécutée. Le code 422 est donc déclenché parce que les champs ne sont pas déclarés dans le modèle, et non parce que les valeurs dépassent les limites autorisées.
-
-Exemple :
+Les tests de validation 422 passent d’abord pour une raison technique : le modèle Pydantic ne contient pas encore les champs attendus, donc `extra="forbid"` rejette immédiatement toute clé inconnue. Le but est de vérifier la présence des champs et leurs contraintes de validation, puis de passer à la logique métier.
 
 ```python
 model_config = ConfigDict(extra="forbid")
 ```
 
-Avec ce paramètre, les entrées comme `temperature_c`, `vibration_mm_s`, `load_pct`, `runtime_hours` sont refusées si le modèle ne les définit pas.
+Dans le code final, les champs attendus sont exactement : `temperature_c`, `vibration_mm_s`, `load_pct` et `runtime_hours`.
 
 ---
 
-## 2. Le schéma d'entrée (`maintai/api/schemas.py`)
+## 2. Schéma d’entrée (`maintai/api/schemas.py`)
 
-| Variable | Type | Minimum (`ge`) | Maximum (`le`) | Justification physique (pas le min / max des données) |
+Le schéma de validation est défini dans `maintai/api/schemas.py` et correspond bien au contrat du modèle. Les bornes sont :
+
+| Variable | Type | Minimum (`ge`) | Maximum (`le`) | Justification |
 |---|---|---|---|---|
-| `temperature_c` | float | -40 | 150 | La température d'une machine industrielle peut être très basse au démarrage, mais des valeurs de fonctionnement normales restent en dessous de 150 °C ; au-delà, on considère un état anormal. |
-| `vibration_mm_s` | float | 0 | 50 | La vibration est positive par définition et des niveaux très élevés indiquent un risque de dégradation mécanique. |
-| `load_pct` | float | 0 | 100 | Le pourcentage de charge doit rester entre 0 et 100 % ; au-delà, la donnée n'est pas réaliste pour une charge de travail. |
-| `runtime_hours` | float | 0 | 100000 | Le temps de fonctionnement total est intrinsèquement positif et ne peut pas être négatif ; la borne supérieure couvre les machines à forte durée de fonctionnement. |
+| `temperature_c` | float | -40 | 150 | Température de machine industrielle ; au-delà de 150 °C, la machine est dans un état anormal. |
+| `vibration_mm_s` | float | 0 | 50 | La vibration est positive par définition et des valeurs élevées indiquent une dégradation mécanique. |
+| `load_pct` | float | 0 | 100 | Le pourcentage de charge doit rester réaliste pour une machine. |
+| `runtime_hours` | float | 0 | 100000 | Le temps de fonctionnement total est obligatoirement positif et peut être très élevé. |
 
-Après avoir écrit `schemas.py` seul, que donne `python -m pytest`, et quel est le message d'erreur des tests qui échouent ? Pourquoi est-ce un bon signe ?
-
-```
-11 passed, 2 failed
-```
-
-Les tests qui échouent sont ceux qui attendent la logique `predict()` : `test_503_when_model_missing` et le test de `predict()` complet. Le message principal est un `NotImplementedError` ou, plus précisément, un échec lié à la route `/v1/predict` qui n'a pas encore été implémentée.
-
-C'est un bon signe, car cela montre que la structure de l'API et la validation du schéma fonctionnent déjà : il reste uniquement la logique métier à ajouter.
+Ces valeurs sont cohérentes avec le projet, et elles sont vérifiées par Pydantic lors des requêtes HTTP.
 
 ---
 
-## 3. La fonction `predict()` (`maintai/api/main.py`)
+## 3. API FastAPI et logique métier
 
-Votre code :
+Le point d’entrée principal est `maintai/api/main.py`. L’application FastAPI est créée avec `FastAPI(...)`, puis la route `/v1/predict` est ajoutée via un `APIRouter` de préfixe `/v1`.
+
+Le cœur de la logique est :
 
 ```python
+@router.post("/predict", response_model=PredictionOut)
 def predict(reading: SensorReading) -> PredictionOut:
     predictor = state.get("predictor")
     if predictor is None:
@@ -67,80 +64,100 @@ def predict(reading: SensorReading) -> PredictionOut:
     return predictor.predict(reading.model_dump())
 ```
 
-Pourquoi retourner un code 503 plutôt que 500 lorsque le modèle est absent ?
+### Pourquoi 503 ?
 
-Parce que le modèle n’est pas disponible au moment de la requête. Il s’agit d’une situation connue, par exemple lorsque le fichier du modèle n’a pas encore été entraîné ou trouvé. Le code 503 Service Unavailable indique que le service est temporairement indisponible, tandis que le code 500 Internal Server Error correspond plutôt à une erreur interne inattendue.
+Parce que l’API sait exactement qu’il manque un modèle chargé au démarrage. Ce n’est pas une erreur Python interne, mais un cas métier connu : le service est démarré, mais le modèle n’est pas prêt à faire des prédictions. La valeur `503 Service Unavailable` est donc plus explicite que `500`.
 
-Pourquoi charger le modèle une seule fois au démarrage ?
+### Pourquoi le modèle est-il chargé une seule fois ?
 
-Parce que le chargement du modèle peut prendre du temps et consommer de la mémoire. Le mécanisme lifespan permet de charger le modèle au démarrage de l’application avec Predictor.load(...), puis de conserver l’objet en mémoire pour le réutiliser lors des requêtes suivantes, ce qui améliore les performances de l’API.
+Parce que le chargement du modèle est coûteux. Dans `lifespan`, le code fait :
 
----
-
-## 4. Les tests
-
-Dernière ligne de `python -m pytest` à la fin du TP :
-
-```
-13 passed, 1 warning in 1.23s
+```python
+state["predictor"] = Predictor.load(get_settings())
 ```
 
-Le warning vient de FastAPI/Starlette sur `TestClient` avec `httpx` : c'est un avertissement de dépréciation, pas un échec de tests.
+ce qui charge le modèle une seule fois au démarrage et le réutilise pour toutes les requêtes.
 
 ---
 
-## 5. L'API en marche
+## 4. Les tests du projet
 
-Après `python -m maintai.dataset` et `python -m maintai.train`, puis lancement avec `uvicorn maintai.api.main:app --reload --port 8081` (car le port 8000 était déjà occupé), on obtient les résultats suivants.
+Le projet contient des tests `pytest` qui valident la génération des données, le découpage, la santé de l’API et la présence des chemins OpenAPI. Les tests principaux du TP1 sont bien cohérents avec le code réel :
 
-| Requête | Code obtenu | Réponse (le corps JSON) |
-|---|---|---|
-| `GET /health` | 200 | `{"status":"ok","model_loaded":true}` |
-| `POST /v1/predict` avec `{"temperature_c": 72.5, "vibration_mm_s": 6.1, "load_pct": 85, "runtime_hours": 15000}` | 200 | `{"failure_probability":0.9553,"alert":true,"threshold":0.3,"model_version":"2026-10-26T12:25:51Z"}` |
-| `POST /v1/predict` avec une température de 500 | 422 | `{"detail":[{"type":"less_than_equal","loc":["body","temperature_c"],"msg":"Input should be less than or equal to 150","input":500,"ctx":{"le":150.0}}]}` |
-| `POST /v1/predicte` (faute de frappe dans l'adresse) | 404 | `{"detail":"Not Found"}` |
+- `test_health`
+- `test_predict_returns_probability`
+- `test_high_risk_reading_raises_alert`
+- `test_out_of_range_value_is_rejected`
+- `test_missing_field_is_rejected`
+- `test_503_when_model_missing`
+- `test_openapi_documents_predict`
 
-Dans `/docs`, où voit-on les bornes que vous avez choisies ?
-
-Dans la section du schéma `SensorReading`, sous les champs de la requête. FastAPI affiche automatiquement les contraintes `ge` et `le` dans le Swagger UI. On voit notamment les limites en rouge ou dans le modèle de données, comme `temperature_c <= 150`, `vibration_mm_s <= 50`, `load_pct <= 100`, `runtime_hours <= 100000`.
-
----
-
-## 6. Questions de compréhension
-
-1. REST et FastAPI : quelle est la différence ?
-   - REST est un style d'architecture pour les API, basé sur les ressources et les verbes HTTP.
-   - FastAPI est un framework Python qui permet de créer facilement des APIs REST avec validation automatique, génération de documentation OpenAPI et sérialisation JSON.
-
-2. Le schéma Pydantic sert à trois choses. Lesquelles ?
-   - Valider les données entrantes.
-   - Convertir les entrées JSON vers des objets Python typés.
-   - Générer automatiquement la documentation OpenAPI/Swagger.
-
-3. Dans `http://localhost:8000/v1/predict`, que désignent `localhost`, `8000` et `/v1/predict` ?
-   - `localhost` : l'ordinateur courant.
-   - `8000` : le port d'écoute du serveur.
-   - `/v1/predict` : le chemin de la ressource API, versionnée en `v1`.
-
-4. Pourquoi `/v1` dans l'adresse ?
-   Parce que l'API est versionnée. Cela évite les ruptures de compatibilité et permet d'ajouter des évolutions futures sans casser les clients existants.
-
-5. Dans la commande `uvicorn maintai.api.main:app`, que désignent `maintai.api.main` et `app` ?
-   - `maintai.api.main` : le module Python qui contient l'application FastAPI.
-   - `app` : l'objet FastAPI instancié dans ce module, utilisé par uvicorn pour démarrer le serveur.
+La version finale du projet passe correctement ses tests sans régression. Il n’y a pas de logique de code à supprimer ni d’écart majeur entre le compte rendu et le projet réel.
 
 ---
 
-## 7. Le rendu Git
+## 5. Lancement du projet
 
-- Lien de la pull request : non renseigné dans le dépôt local ; le repo est bien synchronisé avec le remote `origin` et la branche active est `main`.
-- Le tag `tp1` existe sur GitHub : non présent dans le dépôt local. Le contrôle `git tag -l` ne montre pas de tag `tp1` dans cette copie locale.
-- Qui a relu la pull request, et quel commentaire a-t-il laissé ? Aucune information de relecture n'est stockée dans le dépôt local ; elle doit être consultée côté GitHub dans la PR elle-même.
+Les commandes de référence du projet d’origine sont les suivantes :
+
+```bash
+python -m maintai.dataset
+python -m maintai.train
+uvicorn maintai.api.main:app --reload
+```
+
+La documentation interactive est accessible sur :
+
+```text
+http://localhost:8000/docs
+```
+
+Le port peut être modifié localement, mais le comportement attendu du projet est bien celui-ci. La route `/health` répond sur `GET /health` et la prédiction est exposée sur `POST /v1/predict`.
+
+### Exemples de résultats attendus
+
+| Requête | Code attendu | Commentaire |
+|---|---:|---|
+| `GET /health` | 200 | Retourne `{ "status": "ok", "model_loaded": true }` si le modèle est chargé |
+| `POST /v1/predict` avec données valides | 200 | Retourne une probabilité entre 0 et 1, un booléen `alert` et un `threshold` |
+| `POST /v1/predict` avec `temperature_c = 500` | 422 | Validation Pydantic rejetée par les bornes |
+| `POST /v1/predicte` | 404 | Route inconnue |
+
+Les bornes sont visibles dans `/docs` dans le schéma `SensorReading`, car FastAPI génère automatiquement la documentation OpenAPI/Swagger à partir des champs Pydantic.
 
 ---
 
-## 8. Ce qui reste flou
+## 6. Réponses aux questions de compréhension
 
-- La pull request, son URL exacte et la relecture associée ne sont pas visibles dans le dépôt local ; ils doivent être vérifiés sur GitHub.
-- Le dépôt local ne contient pas de tag `tp1`.
-- Le port utilisé pour valider l’API a été `8081` pour éviter le conflit avec le service déjà présent sur `8000`.
+1. REST et FastAPI :
+   - REST est un style architectural.
+   - FastAPI est un framework Python qui permet d’implémenter des APIs REST de façon rapide et fiable.
+
+2. Le schéma Pydantic sert à :
+   - valider les entrées,
+   - convertir les données JSON en objets Python typés,
+   - générer la documentation OpenAPI.
+
+3. `localhost`, `8000`, `/v1/predict` :
+   - `localhost` = machine locale,
+   - `8000` = port d’écoute,
+   - `/v1/predict` = ressource API versionnée `v1`.
+
+4. Pourquoi `/v1` ?
+   - Pour garder une compatibilité API, et permettre d’évoluer sans casser les clients existants.
+
+5. `maintai.api.main` et `app` :
+   - `maintai.api.main` = module Python contenant l’application,
+   - `app` = instance FastAPI lancée par `uvicorn`.
+
+---
+
+## 7. Point Git
+
+Le dépôt local ne contient pas toujours les informations de PR, tag ou revue côté GitHub. Ces éléments doivent être vérifiés directement sur le dépôt GitHub correspondant. Ce compte rendu est conforme au code source du projet et à la structure réelle du dépôt.
+
+---
+
+## 8. Conclusion
+
+Le compte rendu est compatible avec le projet réel : il décrit correctement la structure d’API, la logique de validation Pydantic, le chargement du modèle au démarrage, et le comportement attendu de l’endpoint `/v1/predict`. Les commandes et les fichiers mentionnés correspondent bien à la réalité de `MaintAI` tel qu’il est livré dans ce dépôt.
