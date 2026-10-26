@@ -67,13 +67,13 @@ def predict(reading: SensorReading) -> PredictionOut:
     return predictor.predict(reading.model_dump())
 ```
 
-Pourquoi répondre **503** et pas 500 quand le modèle manque ?
+Pourquoi retourner un code 503 plutôt que 500 lorsque le modèle est absent ?
 
-Parce que le modèle n'est pas disponible au moment de l'appel, mais c'est une condition métier connue et attendue : l'API est démarrée mais le fichier du modèle n'a pas encore été entraîné ou trouvé. `503 Service Unavailable` est plus explicite qu'un `500 Internal Server Error` et indique au client que le service n'est pas prêt pour traiter la prédiction.
+Parce que le modèle n’est pas disponible au moment de la requête. Il s’agit d’une situation connue, par exemple lorsque le fichier du modèle n’a pas encore été entraîné ou trouvé. Le code 503 Service Unavailable indique que le service est temporairement indisponible, tandis que le code 500 Internal Server Error correspond plutôt à une erreur interne inattendue.
 
-Pourquoi le modèle est-il chargé **une seule fois**, au démarrage, et pas à chaque requête ?
+Pourquoi charger le modèle une seule fois au démarrage ?
 
-Parce que le chargement du modèle est coûteux en temps et en mémoire. Le code utilise `lifespan` avec `state["predictor"] = Predictor.load(...)`, ce qui permet de charger le modèle une seule fois au démarrage de l'application, puis de réutiliser l'objet en mémoire pour toutes les requêtes.
+Parce que le chargement du modèle peut prendre du temps et consommer de la mémoire. Le mécanisme lifespan permet de charger le modèle au démarrage de l’application avec Predictor.load(...), puis de conserver l’objet en mémoire pour le réutiliser lors des requêtes suivantes, ce qui améliore les performances de l’API.
 
 ---
 
