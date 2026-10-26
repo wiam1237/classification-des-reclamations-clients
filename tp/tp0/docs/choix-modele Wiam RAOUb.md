@@ -2,7 +2,7 @@ Auteur : wiam1237
 
 # Choix du modèle
 
-Date : 26/10/2026 · Groupe : Projet maintenance prédictive
+Date : 26/10/2026 ·  Projet: maintenance prédictive
 
 ## Contexte
 Le projet a pour objectif de prédire les pannes des machines à partir des données collectées par les capteurs de fonctionnement. La métrique principale utilisée est le recall, car il est essentiel de détecter le maximum de pannes réelles. En effet, en maintenance prédictive, ne pas détecter une panne peut entraîner un arrêt imprévu de la machine et provoquer des pertes opérationnelles importantes.
@@ -22,18 +22,18 @@ Le découpage est aléatoire stratifié avec un ratio 80/20, avec `random_state=
 | Baseline | 0.000 | 0.824 | 0.000 | 0.000 |
 
 ## Décision
-Le modèle retenu est l’arbre de décision, car il obtient le meilleur recall sur le jeu de test : 0.597, contre 0.000 pour la baseline. L’amélioration est donc de +0.597 point de recall, soit une détection nette des pannes réelles. Cela répond bien au besoin métier prioritaire : identifier le plus grand nombre de pannes potentielles, même si la précision est moins forte que pour la régression logistique.
+Le modèle retenu est l’arbre de décision, car il obtient le meilleur recall sur le jeu de test, avec une valeur de 0,597, contre 0,000 pour la baseline. Il permet donc de détecter davantage de pannes réelles. Ce résultat répond au besoin principal du projet, qui est d’identifier le maximum de pannes potentielles, même si la précision est moins élevée que celle de la régression logistique.
 
-Le critère d’acceptation est atteint : le modèle retenu dépasse clairement la baseline sur la métrique principale et atteint un recall supérieur à 0,50, seuil pratique pour considérer la détection des pannes comme utile en production.
+Le critère d’acceptation est atteint, car le modèle dépasse la baseline et obtient un recall supérieur à 0,50. Ce seuil indique que le modèle présente un intérêt pour la détection des pannes, même si des améliorations restent nécessaires avant son utilisation en production.
 
 ## Limites
-Ces résultats ne couvrent pas tous les scénarios possibles : le jeu de test ne contient qu’environ 1 000 observations, le découpage est aléatoire et non chronologique, et les données sont synthétiques. De plus, le déséquilibre entre classes peut masquer certains écarts de performance, et les cas de faux positifs restent encore assez fréquents pour certains modèles. La robustesse du modèle devra être confirmée sur de nouvelles données réelles et plus représentatives de la maintenance opérationnelle.
+Ces résultats ne prennent pas en compte tous les scénarios possibles. Le jeu de test contient environ 1 000 observations, le découpage des données est aléatoire et les données utilisées sont synthétiques. De plus, le déséquilibre entre les classes peut influencer l’évaluation des performances, et certains modèles génèrent encore un nombre important de fausses alertes. Il sera donc nécessaire de tester le modèle sur de nouvelles données réelles et plus représentatives des conditions de maintenance industrielle afin de confirmer sa fiabilité.
 
 ---
 
 # Choix du modèle — Variante cantines repas
 
-Date : 26/10/2026 · Groupe : Projet cantines repas
+Date : 26/10/2026 ·  Projet: cantines repas
 
 ## Contexte
 Le projet vise à prédire le nombre de repas servis dans une cantine scolaire à partir de données de fréquentation et de contexte (jour, menu, météo, examens, vacances, etc.). La métrique principale est le MAE (Mean Absolute Error), car l’objectif est de minimiser l’erreur moyenne de prévision afin d’optimiser les achats, la préparation et l’organisation des ressources sans surstock ni rupture.
