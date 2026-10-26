@@ -1,3 +1,5 @@
+Auteur : wiam1237
+
 # Choix du modèle
 
 Date : 26/10/2026 · Groupe : Projet maintenance prédictive
