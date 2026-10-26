@@ -1,3 +1,4 @@
+Auteur : wiam1237
 # Compte rendu · TP1 : une API de prédiction pour MaintAI
  **Date :** 26/10/2026
 
@@ -19,7 +20,9 @@ Dans `tests/test_api.py`, 4 tests sur 7 passent déjà alors que rien n'est écr
 - `test_high_risk_reading_raises_alert`
 - `test_openapi_documents_predict`
 
-Les deux tests qui attendent un code 422 passent « pour une mauvaise raison » parce que le schéma `SensorReading` n'avait pas encore de champs. Avec `extra="forbid"`, tous les champs envoyés dans le JSON sont considérés comme des clés inconnues. Donc un payload valide ou presque est rejeté avant même la validation métier des bornes. En pratique, le 422 est provoqué par le fait qu'il n'y a pas de champ déclaré dans le modèle, et non par la logique de validation.
+Les deux tests qui vérifient le code d’erreur 422 passent, mais pour une mauvaise raison. En effet, le modèle SensorReading ne contenait encore aucun champ. Avec l’option extra="forbid", tous les champs envoyés dans le JSON sont considérés comme inconnus et sont donc rejetés.
+
+Ainsi, même si les valeurs envoyées sont correctes ou presque, la requête est refusée avant que la validation métier soit exécutée. Le code 422 est donc déclenché parce que les champs ne sont pas déclarés dans le modèle, et non parce que les valeurs dépassent les limites autorisées.
 
 Exemple :
 
