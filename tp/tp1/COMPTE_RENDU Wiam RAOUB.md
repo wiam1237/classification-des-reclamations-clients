@@ -130,14 +130,14 @@ Dans la section du schéma `SensorReading`, sous les champs de la requête. Fast
 
 ## 7. Le rendu Git
 
-- Lien de la pull request : À compléter
-- Le tag `tp1` existe sur GitHub : à vérifier / à compléter
-- Qui a relu la pull request, et quel commentaire a-t-il laissé ? À compléter
+- Lien de la pull request : non renseigné dans le dépôt local ; le repo est bien synchronisé avec le remote `origin` et la branche active est `main`.
+- Le tag `tp1` existe sur GitHub : non présent dans le dépôt local. Le contrôle `git tag -l` ne montre pas de tag `tp1` dans cette copie locale.
+- Qui a relu la pull request, et quel commentaire a-t-il laissé ? Aucune information de relecture n'est stockée dans le dépôt local ; elle doit être consultée côté GitHub dans la PR elle-même.
 
 ---
 
 ## 8. Ce qui reste flou
 
-- Vérification du dépôt Git distant et du tag `tp1`.
-- Nom exact du relecteur GitHub et commentaire qu'il a laissé sur la PR.
-- Le port exact utilisé dans l'environnement final peut varier selon les services déjà présents sur la machine (`8000` souvent occupé, donc `8081` peut être utilisé pour tester localement).
+- La pull request, son URL exacte et la relecture associée ne sont pas visibles dans le dépôt local ; ils doivent être vérifiés sur GitHub.
+- Le dépôt local ne contient pas de tag `tp1`.
+- Le port utilisé pour valider l’API a été `8081` pour éviter le conflit avec le service déjà présent sur `8000`.
