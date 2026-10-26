@@ -1,6 +1,6 @@
 # Choix du modèle
 
-**Date :** 26/10/2026 · **Groupe :** [Noms des membres]
+**Date :** 26/10/2026 · **Groupe :** ELOUALI IMANE
 
 ## Contexte
 

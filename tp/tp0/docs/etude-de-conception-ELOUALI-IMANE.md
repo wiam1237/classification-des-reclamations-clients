@@ -1,6 +1,6 @@
 # Étude de conception — MaintAI : prédiction des pannes de machines
 
-**Groupe :** [Noms des membres] · **Version :** Finale · **Date :** 26/10/2026
+**Groupe :** ELOUALI IMANE · **Version :** Finale · **Date :** 26/10/2026
 
 ## 1. Contexte et utilisateurs
 
