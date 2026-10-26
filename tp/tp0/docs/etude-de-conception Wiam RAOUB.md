@@ -1,3 +1,4 @@
+Auteur : wiam1237
 # Étude de conception — Maintenance prédictive des équipements
 
 Groupe : Projet maintenance prédictive · Version : finale · Date : 26/10/2026 nom:
