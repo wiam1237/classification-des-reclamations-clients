@@ -2,8 +2,7 @@
 
  ·  **Date :** 26 octobre 2026
 
-> Remplissez chaque partie dans ce fichier, puis rendez-le avec la pull request du TP1.
-> Collez les sorties du terminal entre les lignes ``` (trois accents graves).
+
 
 ---
 
@@ -125,12 +124,14 @@ Dans `/docs`, ouvrir `POST /v1/predict` puis consulter le schéma du corps de re
 
 ## 7. Le rendu Git
 
-- Lien de la pull request : à renseigner
-- Le tag `tp1` existe sur GitHub : à vérifier
+- Lien de la pull request : aucune ; le compte rendu a été poussé directement sur `main`.
+- Le tag `tp1` existe sur GitHub : non (aucun tag `tp1` n'est présent dans le dépôt).
+- Commits du compte rendu :
+  - [Ajout du compte rendu](https://github.com/wiam1237/classification-des-reclamations-clients/commit/6fc3421be3f3522e45fab981147aa36a5e0b0ebd)
+  - [Renommage du compte rendu](https://github.com/wiam1237/classification-des-reclamations-clients/commit/85e1e73b2d986b5ee993147c563ab93aaac00996)
 - Qui a relu la pull request, et quel commentaire a-t-il laissé ?
-  À renseigner après la relecture de la pull request.
+  Sans objet : aucune pull request n'a été créée, donc aucune relecture de PR ni aucun commentaire de review n'est enregistré.
 
 ## 8. Ce qui reste flou
 
-À personnaliser par le groupe : noter ici une question qui reste ouverte après le TP,
-ou écrire « aucune question pour le moment ».
+Rien
