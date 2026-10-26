@@ -1,9 +1,6 @@
 # Compte rendu · TP1 : une API de prédiction pour MaintAI
+ **Date :** 26/10/2026
 
-**Groupe :** À compléter · **Membres :** À compléter · **Date :** 26/10/2026
-
-> Remplissez chaque partie dans ce fichier, puis rendez-le avec la pull request du TP1.
-> Collez les sorties du terminal entre les lignes ``` (trois accents graves).
 
 ---
 
