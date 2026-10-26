@@ -4,13 +4,16 @@
 
 ## 1. Contexte et utilisateurs
 
-Ce projet porte sur la prédiction des défaillances d’équipements à partir de mesures décrivant leurs conditions de fonctionnement. L’utilisateur principal envisagé est un technicien ou un responsable de maintenance. Cette hypothèse devra toutefois être confirmée auprès du commanditaire.
+Ce projet porte sur la prédiction des défaillances d’équipements à partir de mesures décrivant leurs conditions de fonctionnement.
+ L’utilisateur principal envisagé est un technicien ou un responsable de maintenance. 
+ Cette hypothèse devra toutefois être confirmée auprès du commanditaire.
 
 ## 2. Problématique et décision visée
 
 La prédiction est conçue comme un indicateur destiné à orienter et à hiérarchiser les inspections. Elle ne constitue pas, à elle seule, une décision d’intervention. Le système produira une prédiction pour chaque observation de mesures ; la fréquence effective de collecte et d’utilisation reste à définir.
 
-Les erreurs de prédiction sont susceptibles d’entraîner des conséquences distinctes : une panne non détectée peut retarder une inspection, tandis qu’une fausse alerte peut conduire à une vérification inutile. Les coûts opérationnels associés et leurs conséquences réelles ne sont pas documentés ; ils devront être évalués avec les utilisateurs concernés.
+Les erreurs de prédiction sont susceptibles d’entraîner des conséquences distinctes : une panne non détectée peut retarder une inspection, tandis qu’une fausse alerte peut conduire à une vérification inutile.
+ Les coûts opérationnels associés et leurs conséquences réelles ne sont pas documentés ; ils devront être évalués avec les utilisateurs concernés.
 
 ## 3. Approche retenue par sous-problème
 
@@ -26,17 +29,22 @@ Les erreurs de prédiction sont susceptibles d’entraîner des conséquences di
 |---|---|---:|---|
 | `data/exemple_pannes.csv` | Fichier fourni avec le projet ; la source externe et la licence ne sont pas documentées | 5 000 lignes et 5 colonnes | Les colonnes examinées ne comportent pas de champ directement identifiant une personne. En l’absence d’information sur la provenance, le statut des données reste à confirmer. |
 
-Le fichier contient les variables `temperature_c`, `vibration_mm_s`, `load_pct` et `runtime_hours`, ainsi que la cible `failure`. Il comprend 4 122 observations sans panne et 878 observations avec panne. Aucune valeur manquante n’a été relevée dans le fichier fourni.
+Le fichier contient les variables `temperature_c`, `vibration_mm_s`, `load_pct` et `runtime_hours`, ainsi que la cible `failure`.
+ Il comprend 4 122 observations sans panne et 878 observations avec panne. Aucune valeur manquante n’a été relevée dans le fichier fourni.
 
 ## 5. Métriques, référence et critères d’acceptation
 
-Le modèle de référence est un classifieur qui prédit systématiquement la classe majoritaire, correspondant à l’absence de panne. Sur le jeu de test, il obtient une accuracy de 0,824 et un rappel de 0,000.
+Le modèle de référence est un classifieur qui prédit systématiquement la classe majoritaire, correspondant à l’absence de panne. 
+Sur le jeu de test, il obtient une accuracy de 0,824 et un rappel de 0,000.
 
-Le rappel de la classe « panne » constitue la métrique principale, car il mesure la proportion de pannes effectivement détectées et met en évidence les pannes manquées. La précision et le score F1 sont également suivis afin de caractériser le compromis entre détection et fausses alertes.
+Le rappel de la classe « panne » constitue la métrique principale, car il mesure la proportion de pannes effectivement détectées et met en évidence les pannes manquées. 
+La précision et le score F1 sont également suivis afin de caractériser le compromis entre détection et fausses alertes.
 
-Les résultats de référence sont les suivants : la régression logistique atteint un rappel de 0,847, une précision de 0,527, un score F1 de 0,649 et une accuracy de 0,839. L’arbre de décision obtient un rappel de 0,545 et la forêt aléatoire, un rappel de 0,693.
+Les résultats de référence sont les suivants : la régression logistique atteint un rappel de 0,847, une précision de 0,527, un score F1 de 0,649 et une accuracy de 0,839. 
+L’arbre de décision obtient un rappel de 0,545 et la forêt aléatoire, un rappel de 0,693.
 
-Aucun seuil quantitatif d’acceptation n’a été fourni. Il n’est donc pas possible de déclarer formellement le modèle acceptable à ce stade. Avant tout déploiement, il conviendra de définir avec les utilisateurs le rappel minimal attendu, le niveau de fausses alertes tolérable, la représentativité du jeu de validation et la procédure de revue humaine des alertes.
+Aucun seuil quantitatif d’acceptation n’a été fourni. 
+Il n’est donc pas possible de déclarer formellement le modèle acceptable à ce stade. Avant tout déploiement, il conviendra de définir avec les utilisateurs le rappel minimal attendu, le niveau de fausses alertes tolérable, la représentativité du jeu de validation et la procédure de revue humaine des alertes.
 
 ## 6. Architecture prévue
 
@@ -71,21 +79,27 @@ Cette architecture correspond à un processus d’entraînement hors ligne. À c
 - Aucun seuil de décision, coût d’erreur ou critère d’acceptation métier n’a été établi.
 - Le déploiement, la surveillance des dérives, le réentraînement, l’explicabilité destinée aux opérateurs et l’intégration à un système de maintenance ne relèvent pas du périmètre de ce prototype.
 
+
+
 # Étude de conception — Prévision des repas de cantine
 
 **Groupe :** CantineAI · **Date :** 26/10/2026
 
 ## 1. Contexte et utilisateurs
 
-Ce projet vise à estimer le nombre de repas qui seront servis à la cantine à partir des inscriptions et des informations associées à chaque journée. L’utilisateur principal envisagé est le gestionnaire de cantine ou le responsable de la restauration scolaire. Ce rôle devra être confirmé auprès du commanditaire.
+Ce projet vise à estimer le nombre de repas qui seront servis à la cantine à partir des inscriptions et des informations associées à chaque journée. L’utilisateur principal envisagé est le gestionnaire de cantine ou le responsable de la restauration scolaire. 
+Ce rôle devra être confirmé auprès du commanditaire.
 
 ## 2. Problématique et décision visée
 
-La prévision a pour objectif d’aider le personnel à ajuster les quantités de repas à préparer ainsi que les achats nécessaires. Elle constitue un outil d’aide à la décision et ne se substitue pas au jugement du personnel.
+La prévision a pour objectif d’aider le personnel à ajuster les quantités de repas à préparer ainsi que les achats nécessaires. 
+Elle constitue un outil d’aide à la décision et ne se substitue pas au jugement du personnel.
 
-Une prévision est envisagée pour chaque journée de service, idéalement avant la commande des ingrédients et la préparation des repas. L’horaire de production de la prévision et son horizon restent à préciser.
+Une prévision est envisagée pour chaque journée de service, idéalement avant la commande des ingrédients et la préparation des repas. 
+L’horaire de production de la prévision et son horizon restent à préciser.
 
-Une sous-estimation pourrait entraîner un nombre insuffisant de repas, tandis qu’une surestimation pourrait occasionner du gaspillage et des coûts supplémentaires. Le coût relatif de ces erreurs devra être défini par l’équipe de la cantine.
+Une sous-estimation pourrait entraîner un nombre insuffisant de repas, tandis qu’une surestimation pourrait occasionner du gaspillage et des coûts supplémentaires. 
+Le coût relatif de ces erreurs devra être défini par l’équipe de la cantine.
 
 ## 3. Approche retenue par sous-problème
 
@@ -105,13 +119,17 @@ La variable cible est `repas_servis`, dont les valeurs sont comprises entre 248 
 
 ## 5. Métriques, référence et critères d’acceptation
 
-Le problème relève de la régression. Le modèle de référence prédit une valeur constante correspondant à la moyenne calculée sur les données d’entraînement. Sur le test chronologique, il obtient une MAE de 70,271 repas, une RMSE de 88,416 repas et un R² de -0,151.
+Le problème relève de la régression. Le modèle de référence prédit une valeur constante correspondant à la moyenne calculée sur les données d’entraînement. 
+Sur le test chronologique, il obtient une MAE de 70,271 repas, une RMSE de 88,416 repas et un R² de -0,151.
 
-La MAE constitue la métrique principale. Exprimée en nombre de repas, elle rend directement interprétable l’écart moyen entre les prévisions et les valeurs observées. La RMSE et le R² sont également rapportés à titre complémentaire.
+La MAE constitue la métrique principale. 
+Exprimée en nombre de repas, elle rend directement interprétable l’écart moyen entre les prévisions et les valeurs observées. 
+La RMSE et le R² sont également rapportés à titre complémentaire.
 
 Les résultats de référence sont les suivants : la régression linéaire atteint une MAE de 22,239, une RMSE de 28,170 et un R² de 0,883 ; Ridge (régression linéaire régularisée) obtient respectivement 22,623, 28,545 et 0,880 ; l’arbre de décision, 46,000, 59,710 et 0,475 ; la forêt aléatoire, 31,825, 41,647 et 0,745.
 
-Aucun seuil quantitatif d’acceptation n’a été défini. Avant toute utilisation opérationnelle, l’équipe de la cantine devra préciser l’erreur moyenne tolérable, les niveaux acceptables de surplus ou de manque, ainsi que la période de validation.
+Aucun seuil quantitatif d’acceptation n’a été défini. 
+Avant toute utilisation opérationnelle, l’équipe de la cantine devra préciser l’erreur moyenne tolérable, les niveaux acceptables de surplus ou de manque, ainsi que la période de validation.
 
 ## 6. Architecture prévue
 
