@@ -329,20 +329,21 @@ Les deux URL ne correspondent pas à la même origine, car leurs ports sont diff
 
 ---
 
-## 8. Le rendu Git
+## ## 8. Le rendu Git
 
-- **Dépôt GitHub :** https://github.com/wiam1237/classification-des-reclamations-clients
+- **Dépôt GitHub :** [classification-des-reclamations-clients](https://github.com/wiam1237/classification-des-reclamations-clients)
 - **Dossier de rendu :** `tp/tp2`
 - **Branche principale :** `main`
-- **Branche de travail TP2 :** à compléter après sa création.
-- **Lien de la Pull Request :** à compléter après sa création.
-- **Le tag `tp2` existe sur GitHub :** à vérifier.
-- **`git status` avant le commit :** dans la copie locale préparée, le dossier `tp/tp2/` apparaît comme non suivi (`?? tp/tp2/`) ; aucun fichier `.env` n'apparaît dans cette sortie. Vérifier également le statut dans la copie utilisée pour le rendu.
-- **Reviewer :** à compléter après la relecture de la Pull Request.
-- **Commentaire du reviewer :** à compléter selon le retour réellement reçu.
+- **Branche de travail TP2 :** `tp2-maintai`
+- **Intégration :** la branche `tp2-maintai` a été fusionnée directement dans `main`, puis publiée sur GitHub.
+- **Pull Request :** aucune Pull Request n'a été créée, car la fusion a été réalisée directement en ligne de commande.
+- **Tag `tp2` :** à vérifier sur GitHub.
+- **Compte rendu :** rangé dans `tp/tp2/docs/compte rendu/COMPTE_RENDU_ERREYYADI_OUIAM.md`.
+- **Fichiers sensibles :** le fichier `.env` et l'environnement virtuel `.venv` ne sont pas inclus dans le dépôt.
+- **Dernier commit relatif à l'organisation du compte rendu :** `91df937` — « Organiser les comptes rendus ».
+- **État Git final :** `working tree clean`, branche `main` synchronisée avec `origin/main`.
 
-Le dossier `tp/tp2` a été créé dans une copie locale du dépôt. À ce stade, aucun commit ni push n'a été effectué. La Pull Request et le tag restent donc à créer ou à vérifier sur GitHub.
-
+Le TP2 a donc été intégré à la branche principale et publié sur GitHub. Le compte rendu est également organisé dans le dossier prévu à cet effet.
 ---
 
 ## 9. Ce qui reste flou
