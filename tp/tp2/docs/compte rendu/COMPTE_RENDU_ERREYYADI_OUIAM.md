@@ -83,7 +83,7 @@ Ainsi, Ruff vérifie la qualité du code, tandis que Pytest vérifie son fonctio
 
 La sortie actuellement vérifiable correspond à l'état du projet après la mise en place de la sécurisation de l'API :
 
-======================== 18 passed, 1 warning in 3.76s ========================
+18 passed, 1 warning in 3.76s 
 
 
 Je n'ai pas conservé de sortie fiable du premier lancement, juste après la mise en place initiale du TP2. Je ne peux donc pas confirmer précisément quels tests échouaient à cette étape ni les codes HTTP obtenus.
@@ -136,7 +136,7 @@ En effet, écrire la fonction dans `security.py` ne suffit pas : il faut égalem
 ### Dernière ligne de `python -m pytest` à la fin du sprint 1
 
 
-======================== 18 passed, 1 warning in 3.76s ========================
+ 18 passed, 1 warning in 3.76s 
 
 
 ### Résultats des requêtes HTTP
