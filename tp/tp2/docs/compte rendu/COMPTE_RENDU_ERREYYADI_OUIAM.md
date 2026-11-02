@@ -352,3 +352,7 @@ La différence entre `localhost` et `127.0.0.1` est importante pour CORS.
 Même sur le même ordinateur et avec le même port, ces deux hôtes constituent des origines différentes. Il faut donc autoriser dans la configuration CORS l'origine exacte utilisée pour ouvrir la page web.
 
 Par exemple, `http://localhost:5501` et `http://127.0.0.1:5501` sont deux origines distinctes.
+
+
+
+Ce TP m'a permis de mettre en pratique les tests d'une API, la sécurisation des accès par clé API, la gestion des erreurs HTTP et l'intégration d'une interface web avec une API REST. Les différents tests réalisés ont permis de vérifier le bon fonctionnement de l'application ainsi que son comportement face aux requêtes invalides.
