@@ -27,9 +27,9 @@ Cela montre que l'API valide correctement les données reçues et détecte les r
 
 ### Dernière ligne de `python -m pytest` avec `tests/test_casser.py` (dans `tp/tp1`)
 
-```text
+
 ==================== 19 passed, 1 warning in 4.60s ====================
-```
+
 
 J'ai obtenu 19 tests au lieu des 18 prévus, car mon projet contient un test supplémentaire dans le fichier `test_demo.py` : `test_500_degres_est_refuse`. Ce test vérifie que l'API refuse une température de 500 °C.
 
@@ -47,27 +47,27 @@ Dans notre cas, Pytest compte cinq tests pour la fonction `test_requete_refusee`
 
 ### Sortie de `ruff check .` dans `tp/tp1`
 
-```text
+
 All checks passed!
-```
+
 
 ### Sortie de `ruff check . --fix`
 
-```text
+
 Found 4 errors (4 fixed, 0 remaining).
-```
+
 
 ### Sortie de `ruff format .`
 
-```text
+
 19 files left unchanged
-```
+
 
 ### Sortie de `python -m pytest`
 
-```text
+
 ================ 19 passed, 1 warning in 4.64s =================
-```
+
 
 **Quelle différence entre `ruff check .` et `python -m pytest` ? Que vérifie chacun ?**
 
@@ -83,9 +83,8 @@ Ainsi, Ruff vérifie la qualité du code, tandis que Pytest vérifie son fonctio
 
 La sortie actuellement vérifiable correspond à l'état du projet après la mise en place de la sécurisation de l'API :
 
-```text
 ======================== 18 passed, 1 warning in 3.76s ========================
-```
+
 
 Je n'ai pas conservé de sortie fiable du premier lancement, juste après la mise en place initiale du TP2. Je ne peux donc pas confirmer précisément quels tests échouaient à cette étape ni les codes HTTP obtenus.
 
@@ -136,9 +135,9 @@ En effet, écrire la fonction dans `security.py` ne suffit pas : il faut égalem
 
 ### Dernière ligne de `python -m pytest` à la fin du sprint 1
 
-```text
+
 ======================== 18 passed, 1 warning in 3.76s ========================
-```
+
 
 ### Résultats des requêtes HTTP
 
@@ -281,7 +280,7 @@ Le cinquième cas, qui utilise une mauvaise route (`/v1/inconnue`), obtient quan
 
 Après avoir ajouté l'en-tête `X-API-Key` aux requêtes du fichier `test_casser.py`, les cinq scénarios ont été exécutés avec succès.
 
-```text
+
 collected 23 items
 
 tests\test_api.py .......          [ 30%]
@@ -291,7 +290,7 @@ tests\test_security.py .....       [ 86%]
 tests\test_train.py ...            [100%]
 
 23 passed, 1 warning in 2.65s
-```
+
 
 Les cinq tests de résistance sont donc validés : les quatre données invalides retournent le code 422 et la route inexistante retourne le code 404. Au total, les 23 tests du projet TP2 réussissent.
 
