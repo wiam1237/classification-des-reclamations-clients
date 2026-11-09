@@ -155,10 +155,9 @@ Le navigateur communique avec Streamlit, puis c’est le code Python exécuté p
 ## 6. Le rendu Git
 
 - Dépôt GitHub : https://github.com/wiam1237/classification-des-reclamations-clients
-- Dossier `tp/tp3` sur la branche `main` : laissé vide avec un fichier `.gitkeep`.
-- Copie du projet : publiée dans le dossier `tp/tp3/TP3_Wiam_RAOUB` de la branche `tp3-wiam-raoub` ([voir le dossier du projet](https://github.com/wiam1237/classification-des-reclamations-clients/tree/tp3-wiam-raoub/tp/tp3/TP3_Wiam_RAOUB)).
+- Dossier du projet : publié dans `tp/tp3/tp3_Wiam_RAOUB` sur la branche `main` ([voir le dossier du projet](https://github.com/wiam1237/classification-des-reclamations-clients/tree/main/tp/tp3/tp3_Wiam_RAOUB)).
 - Lien de la pull request TP3 : aucune pull request TP3 n’a été créée.
-- Le tag `tp3` existe sur GitHub : oui, il pointe vers le commit `6c06bb7` de la branche `main` ([voir le tag](https://github.com/wiam1237/classification-des-reclamations-clients/tree/tp3)).
+- Le tag `tp3` existe sur GitHub : oui, il pointe vers le commit de la branche `main` marqué lors de sa création ([voir le tag](https://github.com/wiam1237/classification-des-reclamations-clients/tree/tp3)).
 - Le dossier de travail local utilisé pour les tests n’est pas un dépôt Git ; la copie envoyée sur GitHub exclut `.env`, les CSV générés et le dossier `models/`.
 
 ## 7. Ce qui reste flou
