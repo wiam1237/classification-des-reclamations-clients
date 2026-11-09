@@ -1,6 +1,6 @@
 # Étude de conception — Classification des réclamations clients
 
-Groupe : [G2] · Version : brouillon · Date : 09/11/2026
+Groupe : [G2] · Version : finale · Date : 09/11/2026
 
 > Les éléments entre crochets [...] sont des hypothèses à vérifier ou adapter selon le contenu réel du dépôt.
 
