@@ -1,6 +1,6 @@
 # Compte rendu · TP3 : une interface Streamlit pour MaintAI
 
-**Groupe :*2* …  ·  **Membres :*SANAA KASTASS* …  ·  **Date :**9\11\2026
+**Groupe :*2* …  ·  **Membres :*RMAILI AMIRA* …  ·  **Date :**9\11\2026
 
 > Remplissez chaque partie dans ce fichier, puis rendez-le avec la pull request du TP3.
 > Collez les sorties du terminal entre les lignes ``` (trois accents graves).
