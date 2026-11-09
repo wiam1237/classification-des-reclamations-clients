@@ -1,6 +1,6 @@
 # Compte rendu · TP4 : MaintAI devient un package Python
 
-**Groupe :** … · **Membres :** ERREYYADI Ouiam · **Date :** 09-11-2026
+**Groupe :**2 · **Membres :** RMAILI AMIRA · **Date :** 09-11-2026
 
 > Remplissez chaque partie dans ce fichier, puis rendez-le avec la pull request du TP4.  
 > Collez les sorties du terminal entre les lignes ``` (trois accents graves).
