@@ -1,0 +1,21 @@
+
+# Fichiers locaux, lourds ou sensibles exclus de l'image
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.git/
+dist/
+build/
+*.egg-info/
+tests/
+
+# Données et modèles fournis au lancement
+data/
+models/
+
+# Secrets et fichiers de suivi
+.env
+mlflow.db
+mlruns/
+.dvc/
