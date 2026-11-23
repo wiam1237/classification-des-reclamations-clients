@@ -193,9 +193,9 @@ L'image contient le code MaintAI et ses dépendances épinglées, mais ni donné
 
 ## 8. Le rendu Git
 
-- Lien de la pull request : aucune PR n'a été créée ; les commits ont été poussés directement sur `main`.
-- Le tag `tp6` existe sur GitHub : non, aucun tag `tp6` n'est présent sur le dépôt.
-- `git status` avant le premier commit : le clone du dépôt était propre (`main...origin/main`). Le dossier de travail local `/Users/wiam/Downloads/TP6` n'étant pas un dépôt Git, son état ne pouvait pas être vérifié avec `git status`. Le `.env`, `models/` et les CSV générés ont été exclus du push.
+- Pull request : aucune ; les fichiers ont été poussés directement sur `main`. Commits : [ajout initial](https://github.com/wiam1237/classification-des-reclamations-clients/commit/116a5f02cc7046f67ab8177fa3ce066b82781e40) et [réorganisation dans le dossier demandé](https://github.com/wiam1237/classification-des-reclamations-clients/commit/9eba1bdbf72351d2e33388a8620f192cedfcbfec).
+- Tag `tp6` sur GitHub : non, il n'existait pas au moment de la vérification.
+- `git status` avant le premier commit : le clone GitHub était propre (`main...origin/main`). Après préparation, seuls les fichiers destinés à `tp/tp6/tp6 Wiam RAOUB/` ont été ajoutés ; `.env`, `models/` et les fichiers CSV générés en ont été exclus. Le dossier local `/Users/wiam/Downloads/TP6` n'est pas lui-même un dépôt Git.
 
 ## 9. Ce qui reste flou
 
