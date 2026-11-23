@@ -193,9 +193,9 @@ L'image contient le code MaintAI et ses dépendances épinglées, mais ni donné
 
 ## 8. Le rendu Git
 
-- Lien de la pull request : à compléter si une PR est créée. Le dossier courant n'est pas un dépôt Git.
-- Le tag `tp6` existe sur GitHub : à vérifier sur le dépôt GitHub ; non vérifiable depuis ce dossier.
-- `git status` avant le commit : impossible à déterminer ici ; `git status` indique que le dossier courant n'est pas un dépôt Git.
+- Lien de la pull request : aucune PR n'a été créée ; les commits ont été poussés directement sur `main`.
+- Le tag `tp6` existe sur GitHub : non, aucun tag `tp6` n'est présent sur le dépôt.
+- `git status` avant le premier commit : le clone du dépôt était propre (`main...origin/main`). Le dossier de travail local `/Users/wiam/Downloads/TP6` n'étant pas un dépôt Git, son état ne pouvait pas être vérifié avec `git status`. Le `.env`, `models/` et les CSV générés ont été exclus du push.
 
 ## 9. Ce qui reste flou
 
